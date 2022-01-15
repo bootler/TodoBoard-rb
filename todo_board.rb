@@ -43,7 +43,7 @@ class TodoBoard
             # Usage: mktodo <list> <title> <date> <optional description> - adds a new task to the specified list
             # Date must be in format YYYY-MM-DD. See List#date for implementation
             when 'mktodo'
-                @lists[label].add_item(*args) 
+                @lists[label].add_item(args[0], args[1], args[2..-1].join(" ")) 
             
             # Usage: up <list> <index> <optional amount>
             # Takes the task wth <index> in <list> and moves it higher <amount> times
