@@ -7,7 +7,30 @@ class TodoBoard
 
     def get_command
         print "Please enter a command: "
-        cmd, *args = gets.chomp.split
+        input = gets.chomp.split
+        args = []
+        
+        # input processing - TODO: Optimize.
+        i = 0
+        while i < input.length
+            if input[i].include?("\"")
+                next_el = i + 1
+                rest = input[next_el..-1]
+                match = rest.index(rest.select { |arg| arg.include?("\"") }[0])
+                if match
+                    args << input[i..next_el + match].join(" ")[1...-1]
+                    i += (next_el + match)
+                else
+                    args << input[i]
+                    i += 1
+                end
+            else
+                args << input[i]
+                i += 1
+            end
+        end
+
+        # convert any numeric arguments into integers
         args.map! do |arg|
             if arg.to_i.to_s == arg || arg.to_i.to_s == "0#{arg}"
                 arg.to_i
@@ -16,8 +39,8 @@ class TodoBoard
             end
         end
         begin
-            label = args[0].to_s if args[0]
-            args = args[1..-1]
+            cmd, label, *args = args
+            print args
             case cmd
             # Usage: mklist <label> - makes a new list.
             when 'mklist'
@@ -43,7 +66,7 @@ class TodoBoard
             # Usage: mktodo <list> <title> <date> <optional description> - adds a new task to the specified list
             # Date must be in format YYYY-MM-DD. See List#date for implementation
             when 'mktodo'
-                @lists[label].add_item(args[0], args[1], args[2..-1].join(" ")) 
+                @lists[label].add_item(args[0], args[1], args[2])
             
             # Usage: up <list> <index> <optional amount>
             # Takes the task wth <index> in <list> and moves it higher <amount> times
@@ -76,7 +99,7 @@ class TodoBoard
             # If an index is given, print the full details of task at <index> on <list>
             when 'print'
                 if args[0]
-                    puts "Todo not found." if !@lists[label].print_full_item(args[0])
+                    puts "Todo not found." if !@lists[label].print_full_item(*args)
                 else
                     @lists[label].print
                 end
@@ -100,13 +123,14 @@ class TodoBoard
             else
                 puts "Command not recognized."
             end
-        rescue
+        rescue => e
             if !@lists[label]
                 puts "Invalid or unspecified list!"
                 puts "Create a new list with mklist <label>"
                 puts "Specify a list with 'command <list> <command-specific args>'" 
             else
                 puts "Invalid arguments for: #{cmd}"
+                puts e.message
             end
         end
         true
