@@ -40,7 +40,6 @@ class TodoBoard
         end
         begin
             cmd, label, *args = args
-            print args
             case cmd
             # Usage: mklist <label> - makes a new list.
             when 'mklist'
