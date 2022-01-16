@@ -87,8 +87,8 @@ class TodoBoard
             # Usage: bottom <list> <index> - moves the task at <index> in <list> to the bottom
             # This preserves the relative order of other tasks.
             when 'bottom'
-                puts "Todo not found" if !@lists[label].up(*args, @lists[label].size - 1)
-                
+                puts "Todo not found" if !@lists[label].down(*args, @lists[label].size - 1)
+
             # Usage: swap <list> <index 1> <index 2>
             # Takes the task in <list> at <index 1> and swaps it with
             # the task at <index 2>
