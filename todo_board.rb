@@ -68,22 +68,32 @@ class TodoBoard
                 @lists[label].add_item(args[0], args[1], args[2])
             
             # Usage: up <list> <index> <optional amount>
-            # Takes the task wth <index> in <list> and moves it higher <amount> times
+            # Takes the task at <index> in <list> and moves it higher <amount> times
             # If no amount is specified, moves it up one time.
             when 'up'
-                @lists[label].up(*args)
+                puts "Todo not found" if !@lists[label].up(*args)
+            
+            # Usage: top <list> <index> - moves the task at <index> in <list> to the top
+            # This preserves the relative order of other tasks
+            when 'top'
+                puts "Todo not found" if !@lists[label].up(*args, @lists[label].size - 1)
             
             # Usage: down <list> <index> <optional amount>
             # Takes the task wth <index> in <list> and moves it lower <amount> times
             # If no amount is specified, moves it down one time.
             when 'down'
-                @lists[label].down(*args)
+                puts "Todo not found" if !@lists[label].down(*args)
             
+            # Usage: bottom <list> <index> - moves the task at <index> in <list> to the bottom
+            # This preserves the relative order of other tasks.
+            when 'bottom'
+                puts "Todo not found" if !@lists[label].up(*args, @lists[label].size - 1)
+                
             # Usage: swap <list> <index 1> <index 2>
             # Takes the task in <list> at <index 1> and swaps it with
             # the task at <index 2>
             when 'swap'
-                @lists[label].swap(*args)
+                puts "Error swapping - One or more todos does not exist" if !@lists[label].swap(*args)
             
             # Usage: sort <list> - sorts the list by date in descending order
             when 'sort'
