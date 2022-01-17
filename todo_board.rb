@@ -10,7 +10,7 @@ class TodoBoard
         input = gets.chomp.split
         args = []
         
-        # input processing - TODO: Optimize.
+        # consolidate args from input
         i = 0
         while i < input.length
             if input[i].include?("\"")
@@ -137,9 +137,11 @@ class TodoBoard
                 puts "Invalid or unspecified list!"
                 puts "Create a new list with mklist <label>"
                 puts "Specify a list with 'command <list> <command-specific args>'" 
+                puts
             else
                 puts "Invalid arguments for: #{cmd}"
                 puts e.message
+                puts
             end
         end
         true
