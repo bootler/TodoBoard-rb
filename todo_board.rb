@@ -43,7 +43,17 @@ class TodoBoard
             case cmd
             # Usage: mklist <label> - makes a new list.
             when 'mklist'
-                @lists[label] = List.new(label)
+                if (!@lists[label])
+                    @lists[label] = List.new(label)
+                else
+                    opt = ""
+                    until opt == "y" || opt == "n"
+                        puts opt
+                        print "List already exists! Overwrite? (y/n) "
+                        opt = gets.chomp
+                        @lists[label] = List.new(label) if opt.downcase == "y"
+                    end
+                end
             
             # Usage: ls - display a list of lists
             when 'ls'

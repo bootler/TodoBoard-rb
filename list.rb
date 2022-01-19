@@ -54,7 +54,7 @@ class List
         55.times { Kernel.print "-"}
         puts
         @items.each.with_index do |item, idx|
-            puts "#{idx.to_s.ljust(5)} | #{item.title.ljust(18)} | #{item.deadline} | #{item.done}".ljust(55)
+            puts "#{idx.to_s.ljust(5)} | #{item.title.ljust(18)} | #{item.deadline.ljust(10)} | #{item.done}".ljust(55)
         end
         55.times { Kernel.print "-"}
         puts
@@ -65,7 +65,7 @@ class List
         return false if !self.valid_index?(index)
         55.times { Kernel.print "-"}
         puts
-        puts "#{self[index].title.ljust(45)}#{self[index].deadline}"
+        puts "#{self[index].title.ljust(45)}#{self[index].deadline.rjust(10)}"
         puts "#{self[index].description.ljust(50)}#{self[index].done}"
         55.times { Kernel.print "-"}
         puts
