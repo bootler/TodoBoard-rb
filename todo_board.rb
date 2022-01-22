@@ -29,7 +29,7 @@ class TodoBoard
                 i += 1
             end
         end
-        p args
+        
         # convert any numeric arguments into integers
         args.map! do |arg|
             if arg.to_i.to_s == arg || arg.to_i.to_s == "0#{arg}"

@@ -68,11 +68,11 @@ class List
 
     def print_full_item(index)
         return false if !self.valid_index?(index)
-        55.times { Kernel.print "-"}
+        100.times { Kernel.print "-"}
         puts
-        puts "#{self[index].title.ljust(45)}#{self[index].deadline.rjust(10)}"
-        puts "#{self[index].description.ljust(50)}#{self[index].done}"
-        55.times { Kernel.print "-"}
+        puts "#{self[index].title.ljust(90)}#{self[index].deadline.rjust(10)}"
+        puts "#{self[index].description.ljust(95)}#{self[index].done}"
+        100.times { Kernel.print "-"}
         puts
         true
     end
