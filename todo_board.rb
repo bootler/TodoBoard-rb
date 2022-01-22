@@ -19,7 +19,7 @@ class TodoBoard
                 match = rest.index(rest.select { |arg| arg.include?("\"") }[0])
                 if match
                     args << input[i..next_el + match].join(" ")[1...-1]
-                    i += (next_el + match)
+                    i = (next_el + match + 1)
                 else
                     args << input[i]
                     i += 1
@@ -29,7 +29,7 @@ class TodoBoard
                 i += 1
             end
         end
-
+        p args
         # convert any numeric arguments into integers
         args.map! do |arg|
             if arg.to_i.to_s == arg || arg.to_i.to_s == "0#{arg}"
@@ -48,7 +48,6 @@ class TodoBoard
                 else
                     opt = ""
                     until opt == "y" || opt == "n"
-                        puts opt
                         print "List already exists! Overwrite? (y/n) "
                         opt = gets.chomp
                         @lists[label] = List.new(label) if opt.downcase == "y"

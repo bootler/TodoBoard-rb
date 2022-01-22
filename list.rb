@@ -47,14 +47,19 @@ class List
     def print
         55.times { Kernel.print "-"}
         puts
-        puts @label.upcase.center(55)
+        if @label.length > 55
+            puts "#{@label[0..51].upcase}...".center(55)
+        else
+            puts @label.upcase.center(55)
+        end
         55.times { Kernel.print "-"}
         puts
         puts "Index | #{"Item".ljust(18)} | #{"Deadline".ljust(10)} | Completed".ljust(55)
         55.times { Kernel.print "-"}
         puts
         @items.each.with_index do |item, idx|
-            puts "#{idx.to_s.ljust(5)} | #{item.title.ljust(18)} | #{item.deadline.ljust(10)} | #{item.done}".ljust(55)
+            title = item.title.length > 18 ? "#{item.title[0..14]}..." : item.title
+            puts "#{idx.to_s.ljust(5)} | #{title.ljust(18)} | #{item.deadline.ljust(10)} | #{item.done}".ljust(55)
         end
         55.times { Kernel.print "-"}
         puts
